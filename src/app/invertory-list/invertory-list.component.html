@@ -1,0 +1,67 @@
+<div class="containter-fluid">
+    <br/> <br/>
+    <div class="row">
+        <div class="col text-center">
+            <div class="btn btn-primary" (click)="addInventory()">Add Inventory</div>
+        </div>
+    </div>
+    <br/> <br/>
+    <div *ngIf="inventoryButton" class="row" >
+        <div class="col col-md-4 offset-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <form [formGroup]="inventoryForm">
+                        <div class="form-group">
+                          <label>Name</label>
+                          <input type="text" class="form-control" formControlName="name">
+                          <p *ngIf="inventoryForm.controls.name.errors && inventoryForm.controls.name.dirty" class="alert alert-danger">This field is required!</p>
+                        </div>
+                        <div class="form-group">
+                          <label>Description</label>
+                          <input type="textarea" class="form-control" formControlName="description">
+                          <p *ngIf="inventoryForm.controls.description.errors && inventoryForm.controls.description.dirty" class="alert alert-danger">This field is required!</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Price</label>
+                            <input type="number" class="form-control" formControlName="price">
+                            <p *ngIf="inventoryForm.controls.price.errors && inventoryForm.controls.price.dirty" class="alert alert-danger">This field is required!</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Upload Image</label>
+                            <input type="file" (change)="onFileChanged($event)">
+                        </div>
+                       
+                        <button class="btn btn-block btn-success" type="submit" (click)="submitInventory()">Submit</button>
+                        <button class="btn btn-block btn-danger" type="submit" (click)="inventoryButton = false">Cancel</button>
+                      </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <br><br>
+    <div *ngFor="let item of data"  class=" container card border-primary mb-5" >
+        <div class="card-body">
+            <div class="row align-items-start">
+            <div class="col col-md-5">
+                <img style="height: 200px;" src="{{item.image}}" alt="image1">
+            </div>
+            <div class="col col-md-6">
+                <h2 class="text-success">{{item.name}}</h2>
+                <h4>Price: {{item.price}} ₹</h4>
+                <br>
+                <button type="button" id="modalbutton" class="btn btn-primary"  (click)="openDialog(item)">
+                    View
+                  </button>
+            </div>
+            <div class="col col-md-1">
+                <button type="button" (click)="deleteInventory(item)" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+
+</div>
